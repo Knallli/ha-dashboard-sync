@@ -1,0 +1,28 @@
+name: Dashboard Sync
+version: "1.0.0"
+slug: dashboard_sync
+description: Keeps a folder (e.g. /config/www/dashboard) in sync with a Git repository via a read-only deploy key.
+arch:
+  - amd64
+  - aarch64
+startup: services
+boot: auto
+init: false
+map:
+  - type: homeassistant_config
+    read_only: false
+    path: /config
+options:
+  repository: ""
+  branch: main
+  interval: 300
+  target: /config/www/dashboard
+  git_dir: /config/.deploy/dashboard.git
+  deploy_key: /config/.deploy/dashboard_key
+schema:
+  repository: str
+  branch: str
+  interval: int(30,86400)
+  target: str
+  git_dir: str
+  deploy_key: str
